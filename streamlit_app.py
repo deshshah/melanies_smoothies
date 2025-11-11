@@ -16,8 +16,9 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit
 #st.stop()
 
 #fruit_list = fruit_df.to_pandas()['fruit_name'].tolist()
-fruit_list = pd_df['fruit_name'].tolist()
 pd_df=my_dataframe.to_pandas()
+fruit_list = pd_df['fruit_name'].tolist()
+
 #st.dataframe(pd_df)
 #st.stop()
 ingredients_list = st.multiselect("Choose up to 5 ingredients:", my_dataframe, max_selections=5)
