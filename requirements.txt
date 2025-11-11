@@ -1,6 +1,4 @@
-import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+
 streamlit==1.31.0
 snowflake-snowpark-python==1.15.0
 pandas==2.2.2
