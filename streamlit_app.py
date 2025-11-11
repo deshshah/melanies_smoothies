@@ -1,8 +1,7 @@
 import streamlit as st
 from snowflake.snowpark.functions import col
 import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+
 
 # Connect to Snowflake
 cnx = st.connection("snowflake")
@@ -29,4 +28,4 @@ if ingredients_selected and st.button('Submit Order'):
     
 import requests
 smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+st.text(smoothiefroot_response.json())
