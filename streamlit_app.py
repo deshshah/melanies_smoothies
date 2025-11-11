@@ -22,10 +22,9 @@ if ingradients_lists:
    ingredients_string =''
 
     for fruit_chosen in ingradients_lists:
-        ingredients_string += fruit_chosen + ' '
+       ingredients_string += fruit_chosen + ' '
        my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
-           values ('""" +ingredients_string+ """','""" +name_on_order+ """')"""
-
+       values ('""" +ingredients_string+ """','""" +name_on_order+ """')"""
         time_to_insert = st.button('Submit Order')
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
