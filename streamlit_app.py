@@ -15,10 +15,13 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
 # Load data from Snowflake
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on'))
+my_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col('FRUIT_NAME'), col('SEARCH_ON'))
 pd_df = my_dataframe.to_pandas()
 
-# ✅ Diagnostic: Show columns to confirm
+# ✅ Normalise column names to lowercase for safe access
+pd_df.columns = [c.lower() for c in pd_df.columns]
+
+# Diagnostic: Show columns and preview
 st.write("Columns in DataFrame:", pd_df.columns.tolist())
 st.write("Preview of data:", pd_df.head())
 
@@ -31,7 +34,7 @@ if ingredients_list:
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
 
-        # ✅ Safe lookup: If 'search_on' column exists, use it; else fallback to fruit_name
+        # ✅ Safe lookup: If 'search_on' exists, use it; else fallback to fruit_name
         if 'search_on' in pd_df.columns:
             search_on = pd_df.loc[pd_df['fruit_name'] == fruit_chosen, 'search_on'].iloc[0]
         else:
@@ -46,7 +49,7 @@ if ingredients_list:
 
     # Insert order into Snowflake
     my_insert_stmt = f"""
-        INSERT INTO smoothies.public.orders(ingredients, name_on_order)
+        INSERT INTO SMOOTHIES.PUBLIC.ORDERS(ingredients, name_on_order)
         VALUES ('{ingredients_string.strip()}', '{name_on_order}')
     """
 
@@ -54,7 +57,3 @@ if ingredients_list:
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success(f'Your Smoothie is ordered, {name_on_order}!', icon="✅")
-
-
-
-    
