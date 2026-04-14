@@ -4,3 +4,4 @@ snowflake-snowpark-python
 snowflake-connector-python
 setuptools
 requests
+pandas
